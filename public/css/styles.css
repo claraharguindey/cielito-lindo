@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#canvasContainer {
+  margin: 20px auto;
+  width: 80%;
+  height: 400px;
+}
+
+.gallery {
+  background: #24559f;
+}
+
+#gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  background: #24559f;
+}
+
+#gallery img {
+  max-width: 300px;
+  max-height: 300px;
+}
