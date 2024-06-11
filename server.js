@@ -28,8 +28,8 @@ app.get('/', (req, res) => {
 });
 
 // Ruta para la galería
-app.get('/gallery', (req, res) => {
-    res.sendFile(path.join(__dirname, 'gallery.html'));
+app.get('/sky', (req, res) => {
+    res.sendFile(path.join(__dirname, 'sky.html'));
 });
 
 // Ruta para subir el dibujo

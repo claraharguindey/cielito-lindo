@@ -10,11 +10,15 @@
     <script src="js/app.js" defer></script>
 </head>
 <body>
-    <div id="canvasContainer"></div>
-    <button id="uploadButton">guardar</button>
+    <div id="canvasContainer">
+        <div class="butttonsContainer">
+            <button id="uploadButton">guardar</button>
+            <button onclick="window.location.href='sky'">ver sielo</button>
+        </div>
+    </div>
+    
     <form id="uploadForm" enctype="multipart/form-data" style="display: none;">
         <input type="file" id="imageInput" name="image">
     </form>
-    <button onclick="window.location.href='gallery'">ver sielo</button>
 </body>
 </html>
