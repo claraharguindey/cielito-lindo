@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: formData,
       }).then((response) => {
         if (response.ok) {
-          window.location.href = "sky";
+          window.location.href = "/";
         } else {
           alert("Hubo un error al crear el astro.");
         }
@@ -44,13 +44,13 @@ function updateSky(skyContainer) {
     .then((images) => {
       skyContainer.innerHTML = "";
       images.forEach((image) => {
+        playFluteSound(Math.floor(Math.random() * 128));
         const img = document.createElement("img");
         img.src = `/images/${image}`;
         skyContainer.appendChild(img);
         if (appearingImages.indexOf(image) === -1) {
           img.className = "animation";
           appearingImages.push(image);
-          playFluteSound(Math.floor(Math.random() * 128)); // Reproduce un sonido de flauta
         }
       });
     });
