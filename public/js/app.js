@@ -45,11 +45,13 @@ function updateSky(skyContainer) {
     .then((images) => {
       skyContainer.innerHTML = "";
 
-      // Calcular el número de columnas según el tamaño de la ventana
+      // Calcular el número de columnas y filas según el tamaño de la ventana
       const numColumns = Math.floor(window.innerWidth / maxSize) + 1;
+      const numRows = Math.floor(window.innerHeight / maxSize) + 1;
 
-      // Arreglo para mantener un seguimiento de las posiciones ocupadas
-      let positions = Array.from({ length: numColumns }, () => 0);
+      // Arreglos para mantener un seguimiento de las posiciones ocupadas
+      let positionsX = Array.from({ length: numColumns }, () => 0);
+      let positionsY = Array.from({ length: numRows }, () => 0);
 
       // Iterar sobre cada imagen
       images.forEach((image, index) => {
@@ -57,19 +59,23 @@ function updateSky(skyContainer) {
         img.src = `/images/${image}`;
 
         // Generar tamaño aleatorio
-        const size =
-          Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
+        const size = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
 
-        // Encontrar la columna disponible más baja
+        // Encontrar la columna y fila disponibles más bajas
         let column = 0;
-        while (positions[column] !== Math.min(...positions)) {
+        while (positionsX[column] !== Math.min(...positionsX)) {
           column++;
+        }
+        let row = 0;
+        while (positionsY[row] !== Math.min(...positionsY)) {
+          row++;
         }
 
         // Calcular posición y actualizar seguimiento
         const leftPosition = column * maxSize;
-        const topPosition = positions[column];
-        positions[column] += size;
+        const topPosition = row * maxSize;
+        positionsX[column] += size; // Actualizar posición ocupada en la columna
+        positionsY[row] += size; // Actualizar posición ocupada en la fila
 
         // Aplicar estilo para tamaño y posición
         img.style.width = `${size}px`;
@@ -84,6 +90,7 @@ function updateSky(skyContainer) {
       });
     });
 }
+
 
 function dataURLtoBlob(dataURL) {
   const parts = dataURL.split(",");
