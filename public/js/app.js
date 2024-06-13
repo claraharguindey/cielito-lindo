@@ -44,20 +44,20 @@ function updateSky(skyContainer) {
     .then((images) => {
       skyContainer.innerHTML = "";
       images.forEach((image) => {
-        playFluteSound(Math.floor(Math.random() * 128));
         const img = document.createElement("img");
         img.src = `/images/${image}`;
         skyContainer.appendChild(img);
         if (appearingImages.indexOf(image) === -1) {
           img.className = "animation";
           appearingImages.push(image);
+          playFluteSound(Math.floor(Math.random() * 128));
         }
       });
     });
 }
 
 function setupSound() {
-  osc = new p5.Oscillator('sine'); // Oscilador de tipo seno para un sonido suave
+  osc = new p5.Oscillator("sine"); // Oscilador de tipo seno para un sonido suave
   osc.start();
   osc.amp(0); // Inicialmente, el oscilador no emite sonido
 
