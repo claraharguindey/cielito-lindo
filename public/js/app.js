@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const uploadButton = document.getElementById("uploadButton");
   let audio = new Audio('./echoes.mp3');
+  audio.loop = true;
   audio.play();
   
   if (uploadButton) {
