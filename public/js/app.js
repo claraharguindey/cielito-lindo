@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const canvasElement = document.querySelector("canvas");
       const canvasImage = canvasElement.toDataURL();
       const blob = dataURLtoBlob(canvasImage);
-      const file = new File([blob], "astro.png", { type: "image/png" });
+      const file = new File([blob], "astro.jpg", { type: "image/jpg" });
 
       const formData = new FormData();
       formData.append("image", file);

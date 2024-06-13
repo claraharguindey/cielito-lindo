@@ -17,7 +17,6 @@ const toggleColor = () => {
 function setup() {
   canvas = createCanvas(400, 400);
   canvas.parent("canvasContainer");
-  // background("#192f4f");
   background("#000");
 }
 
