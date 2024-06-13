@@ -1,15 +1,30 @@
 let canvas;
+let sColor = "#fff";
+let sWeight = 1;
+const removerButton = document.getElementById("removerButton");
+const toggleColor = () => {
+  if (sColor === "#fff") {
+    sColor = "#000";
+    sWeight = 20;
+    removerButton.style.textDecoration = "line-through";
+  } else {
+    sColor = "#fff";
+    sWeight = 1;
+    removerButton.style.textDecoration = "none";
+  }
+};
 
 function setup() {
-    canvas = createCanvas(400, 400);
-    canvas.parent('canvasContainer');
-    background("#24559f");
+  canvas = createCanvas(400, 400);
+  canvas.parent("canvasContainer");
+  // background("#192f4f");
+  background("#000");
 }
 
 function draw() {
-    if (mouseIsPressed) {
-        stroke("#fff");
-        strokeWeight(2);
-        line(mouseX, mouseY, pmouseX, pmouseY);
-    }
+  if (mouseIsPressed) {
+    stroke(sColor);
+    strokeWeight(sWeight);
+    line(mouseX, mouseY, pmouseX, pmouseY);
+  }
 }

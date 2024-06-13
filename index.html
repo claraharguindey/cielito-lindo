@@ -1,24 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>draw</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
     <script src="js/sketch.js" defer></script>
     <script src="js/app.js" defer></script>
 </head>
+
 <body>
+    <header>
+        <div class="accordion-container">
+            <div class="accordion-header" onclick="toggleAccordion()" onmouseenter="toggleAccordion()"
+                onmouseleave="toggleAccordion()">✸</div>
+            <div class="accordion-content" id="accordionContent">
+                ⊹ ࣪ Un creador de firmamentos colectivos.⋆
+            </div>
+        </div>
+    </header>
     <div id="canvasContainer">
         <div class="butttonsContainer">
-            <button id="uploadButton">guardar</button>
-            <button onclick="window.location.href='sky'">ver sielo</button>
+            <button id="removerButton" onclick="toggleColor()">✎</button>
+            <div>
+                <button id="uploadButton"> ⁎̩͙guardar ⁑̩͙̩͙ astro⁂̩̩͙͙</button>
+                <button onclick="window.location.href='sky'">ver * firmamento⁂̩̩͙͙⋆˚ 🔭</button>
+            </div>
         </div>
     </div>
-    
+
     <form id="uploadForm" enctype="multipart/form-data" style="display: none;">
         <input type="file" id="imageInput" name="image">
     </form>
 </body>
+
 </html>

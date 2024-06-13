@@ -1,3 +1,7 @@
+let osc; // Oscilador
+let env; // Envolvente
+const appearingImages = [];
+
 document.addEventListener("DOMContentLoaded", () => {
   const uploadButton = document.getElementById("uploadButton");
 
@@ -6,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const canvasElement = document.querySelector("canvas");
       const canvasImage = canvasElement.toDataURL();
       const blob = dataURLtoBlob(canvasImage);
-      const file = new File([blob], "dibujo.png", { type: "image/png" });
+      const file = new File([blob], "astro.png", { type: "image/png" });
 
       const formData = new FormData();
       formData.append("image", file);
@@ -16,10 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
         body: formData,
       }).then((response) => {
         if (response.ok) {
-          alert("Dibujo subido exitosamente!");
           window.location.href = "sky";
         } else {
-          alert("Hubo un error al subir el dibujo.");
+          alert("Hubo un error al crear el astro.");
         }
       });
     });
@@ -28,27 +31,52 @@ document.addEventListener("DOMContentLoaded", () => {
   const skyContainer = document.getElementById("sky");
 
   if (skyContainer) {
-    updateSky();
-    setInterval(updateSky, 3000);
+    updateSky(skyContainer);
+    setInterval(() => updateSky(skyContainer), 3000);
   }
-  const appearingImages = [];
-  function updateSky() {
-    fetch("/api/images")
-      .then((response) => response.json())
-      .then((images) => {
-        skyContainer.innerHTML = "";
-        images.forEach((image) => {
-          const img = document.createElement("img");
-          img.src = `/images/${image}`;
-          skyContainer.appendChild(img);
-          if (appearingImages.indexOf(image) === -1) {
-            img.className = "animation";
-            appearingImages.push(image);
-          }
-        });
-      });
-  }
+
+  setupSound();
 });
+
+function updateSky(skyContainer) {
+  fetch("/api/images")
+    .then((response) => response.json())
+    .then((images) => {
+      skyContainer.innerHTML = "";
+      images.forEach((image) => {
+        const img = document.createElement("img");
+        img.src = `/images/${image}`;
+        skyContainer.appendChild(img);
+        if (appearingImages.indexOf(image) === -1) {
+          img.className = "animation";
+          appearingImages.push(image);
+          playFluteSound(Math.floor(Math.random() * 128)); // Reproduce un sonido de flauta
+        }
+      });
+    });
+}
+
+function setupSound() {
+  osc = new p5.Oscillator('sine'); // Oscilador de tipo seno para un sonido suave
+  osc.start();
+  osc.amp(0); // Inicialmente, el oscilador no emite sonido
+
+  env = new p5.Envelope();
+  env.setADSR(0.1, 0.2, 0.8, 0.5); // Configuración de la envolvente para sonido sostenido
+  env.setRange(0.5, 0); // Rango de amplitud de la envolvente
+}
+
+function playFluteSound(midiNote) {
+  let freq = midiToFreq(midiNote); // Convierte la nota MIDI a frecuencia
+  osc.freq(freq); // Establece la frecuencia del oscilador
+
+  // Dispara la envolvente para el oscilador
+  env.play(osc, 0, 1); // La envolvente se dispara inmediatamente y sostiene la nota
+}
+
+function midiToFreq(midiNote) {
+  return 440 * Math.pow(2, (midiNote - 69) / 12);
+}
 
 function dataURLtoBlob(dataURL) {
   const parts = dataURL.split(",");
@@ -63,4 +91,11 @@ function dataURLtoBlob(dataURL) {
   }
 
   return new Blob([intArray], { type: mimeString });
+}
+
+function toggleAccordion() {
+  const accordionContent = document.getElementById("accordionContent");
+  accordionContent.style.opacity === "1"
+    ? (accordionContent.style.opacity = "0")
+    : (accordionContent.style.opacity = "1");
 }
