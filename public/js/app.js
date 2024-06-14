@@ -39,29 +39,24 @@ document.addEventListener("DOMContentLoaded", () => {
 const minSize = 100;
 const maxSize = 300;
 
-function updateSky(skyContainer) {
+const updateSky = (skyContainer) => {
   fetch("/api/images")
     .then((response) => response.json())
     .then((images) => {
       skyContainer.innerHTML = "";
 
-      // Calcular el número de columnas y filas según el tamaño de la ventana
       const numColumns = Math.floor(window.innerWidth / maxSize) + 1;
       const numRows = Math.floor(window.innerHeight / maxSize) + 1;
 
-      // Arreglos para mantener un seguimiento de las posiciones ocupadas
       let positionsX = Array.from({ length: numColumns }, () => 0);
       let positionsY = Array.from({ length: numRows }, () => 0);
 
-      // Iterar sobre cada imagen
       images.forEach((image, index) => {
         const img = document.createElement("img");
         img.src = `/images/${image}`;
 
-        // Generar tamaño aleatorio
         const size = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
 
-        // Encontrar la columna y fila disponibles más bajas
         let column = 0;
         while (positionsX[column] !== Math.min(...positionsX)) {
           column++;
@@ -71,13 +66,11 @@ function updateSky(skyContainer) {
           row++;
         }
 
-        // Calcular posición y actualizar seguimiento
         const leftPosition = column * maxSize;
         const topPosition = row * maxSize;
-        positionsX[column] += size; // Actualizar posición ocupada en la columna
-        positionsY[row] += size; // Actualizar posición ocupada en la fila
+        positionsX[column] += size;
+        positionsY[row] += size; 
 
-        // Aplicar estilo para tamaño y posición
         img.style.width = `${size}px`;
         img.style.height = `${size}px`;
         img.style.position = "absolute";
@@ -85,14 +78,13 @@ function updateSky(skyContainer) {
         img.style.top = `${topPosition}px`;
         img.className = "animation";
 
-        // Añadir al contenedor del cielo
         skyContainer.appendChild(img);
       });
     });
 }
 
 
-function dataURLtoBlob(dataURL) {
+const dataURLtoBlob = (dataURL) => {
   const parts = dataURL.split(",");
   const byteString = atob(parts[1]);
   const mimeString = parts[0].split(":")[1].split(";")[0];
@@ -107,7 +99,7 @@ function dataURLtoBlob(dataURL) {
   return new Blob([intArray], { type: mimeString });
 }
 
-function toggleAccordion() {
+const toggleAccordion = () => {
   const accordionContent = document.getElementById("accordionContent");
   accordionContent.style.opacity === "1"
     ? (accordionContent.style.opacity = "0")

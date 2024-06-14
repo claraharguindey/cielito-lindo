@@ -31,6 +31,7 @@ button:hover {
   justify-content: space-between;
   flex-direction: column;
 }
+
 #removerButton {
   text-decoration: none;
   font-size: 24px;
@@ -51,6 +52,7 @@ canvas {
   max-width: 300px;
   max-height: 300px;
 }
+
 .sky {
   background: #000;
 }
@@ -79,6 +81,39 @@ canvas {
   -o-animation: fadeIn 2s;
   -ms-animation: fadeIn 2s;
 }
+
+.accordion-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  display: flex;
+}
+
+.accordion-header {
+  cursor: pointer;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.accordion-content {
+  display: block;
+  opacity: 0;
+  border: 1px solid #ddd;
+  padding: 5px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+@media only screen and (max-width: 600px) {
+  #sky img {
+    max-width: 100px;
+    max-height: 100px;
+  }
+}
+
 
 @keyframes fadeIn {
   0% {
@@ -122,37 +157,5 @@ canvas {
   }
   100% {
     opacity: 1;
-  }
-}
-
-.accordion-container {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 1000;
-  display: flex;
-}
-
-.accordion-header {
-  cursor: pointer;
-  color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 18px;
-}
-
-.accordion-content {
-  display: block;
-  opacity: 0;
-  border: 1px solid #ddd;
-  padding: 5px;
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-@media only screen and (max-width: 600px) {
-  #sky img {
-    max-width: 100px;
-    max-height: 100px;
   }
 }

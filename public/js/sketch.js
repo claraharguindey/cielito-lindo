@@ -2,6 +2,7 @@ let canvas;
 let sColor = "#fff";
 let sWeight = 1;
 const removerButton = document.getElementById("removerButton");
+
 const toggleColor = () => {
   if (sColor === "#fff") {
     sColor = "#000";

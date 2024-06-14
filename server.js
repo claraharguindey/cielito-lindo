@@ -6,33 +6,28 @@ const fs = require('fs');
 const app = express();
 const PORT = 3000;
 
-// Configuración de Multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'uploads/');
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname)); // Añadir timestamp al nombre del archivo
+        cb(null, Date.now() + path.extname(file.originalname));
     }
 });
 
 const upload = multer({ storage: storage });
 
-// Middleware para servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-// Ruta principal
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Ruta para la galería
 app.get('/sky', (req, res) => {
     res.sendFile(path.join(__dirname, 'sky.html'));
 });
 
-// Ruta para subir el dibujo
 app.post('/upload', upload.single('image'), (req, res) => {
     const tempPath = req.file.path;
     const targetPath = path.join(__dirname, 'images', req.file.filename);
@@ -43,7 +38,6 @@ app.post('/upload', upload.single('image'), (req, res) => {
     });
 });
 
-// Ruta para obtener las imágenes
 app.get('/api/images', (req, res) => {
     fs.readdir(path.join(__dirname, 'images'), (err, files) => {
         if (err) return res.sendStatus(500);
